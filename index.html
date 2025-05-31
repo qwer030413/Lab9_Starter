@@ -69,21 +69,21 @@
     </form>
 
     <section id="error-btns">
-      <button>Console Log</button>
-      <button>Console Error</button>
-      <button>Console Count</button>
-      <button>Console Warn</button>
-      <button>Console Assert</button>
-      <button>Console Clear</button>
-      <button>Console Dir</button>
-      <button>Console dirxml</button>
-      <button>Console Group Start</button>
-      <button>Console Group End</button>
-      <button>Console Table</button>
-      <button>Start Timer</button>
-      <button>End Timer</button>
-      <button>Console Trace</button>
-      <button>Trigger a Global Error</button>
+      <button id = "log">Console Log</button>
+      <button id = "error">Console Error</button>
+      <button id = "count">Console Count</button>
+      <button id = "warn">Console Warn</button>
+      <button id = "assert">Console Assert</button>
+      <button id = "clear">Console Clear</button>
+      <button id = "dir">Console Dir</button>
+      <button id = 'dirxml'>Console dirxml</button>
+      <button id = "groupstart">Console Group Start</button>
+      <button id = "groupend">Console Group End</button>
+      <button id = 'table'>Console Table</button>
+      <button id = "timerstart">Start Timer</button>
+      <button id = "timerend">End Timer</button>
+      <button id = "trace">Console Trace</button>
+      <button id = "globalerror">Trigger a Global Error</button>
     </section>
   </main>
 
@@ -95,6 +95,15 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
+      try{
+        let res = eval(`${firstNum} ${operator} ${secondNum}`);
+        output.innerHTML = result;
+      }catch(err){
+        throw new CustomError("nope");
+        console.error("Error:", err.message);
+      }finally{
+        console.log("tried to calculate")
+      }
       output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
 
@@ -102,6 +111,92 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+    let log = document.getElementById('log');
+    let err = document.getElementById('error');
+    let count = document.getElementById('count');
+    let warn = document.getElementById('warn');
+    let assert = document.getElementById('assert');
+    let clear = document.getElementById('clear');
+    let dir = document.getElementById('dir');
+    let dirxml = document.getElementById('dirxml');
+    let groupStart = document.getElementById('groupstart');
+    let groupEnd = document.getElementById('groupend');
+    let table = document.getElementById('table');
+    let timeStart = document.getElementById('timerstart');
+    let timeEnd = document.getElementById('timerend');
+    let trace = document.getElementById('trace');
+    let globalError = document.getElementById('globalerror');
+    log.addEventListener('click', e => {
+      console.log("hello");
+    });
+
+    err.addEventListener('click', e => {
+      console.error("error");
+    });
+
+    count.addEventListener('click', e => {
+      console.count("clicked");
+    });
+
+    warn.addEventListener('click', e => {
+      console.warn("warningg");
+    });
+
+    assert.addEventListener('click', e => {
+      console.assert(1 + 1 == 3, "Assertion failed: 1 + 1 != 3");
+    });
+
+    clear.addEventListener('click', e => {
+      console.clear();
+    });
+
+    dir.addEventListener('click', e => {
+      console.dir(dir);
+    });
+
+    dirxml.addEventListener('click', e => {
+      console.dirxml(dirxml);
+    });
+
+    groupStart.addEventListener('click', e => {
+      console.group("Group");
+    });
+
+    groupEnd.addEventListener('click', e => {
+      console.groupEnd();
+    });
+    table.addEventListener('click', e => {
+      console.table([
+        { name: "CSE110", futureGrade: 'A+' },
+        { name: "CSE105", futureGrade: 'F' }
+      ]);
+    });
+
+    timeStart.addEventListener('click', e => {
+      console.time("timer");
+    });
+
+    timeEnd.addEventListener('click', e => {
+      console.timeEnd("timer");
+    });
+    trace.addEventListener('click', e => {
+      function first() {
+        second();
+      }
+      function second() {
+        console.trace("Trace output");
+      }
+      first();
+    });
+    class CustomError extends Error {
+      constructor(message) {
+        super(message);
+        this.message = "calculation input wrong";
+      }
+    }
+    globalError.addEventListener('click', e => {
+      randomFUnction();
+    });
   </script>
 </body>
 
