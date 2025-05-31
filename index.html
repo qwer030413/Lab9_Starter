@@ -96,15 +96,19 @@
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
       try{
-        let res = eval(`${firstNum} ${operator} ${secondNum}`);
-        output.innerHTML = result;
+        if (isNaN(firstNum) || isNaN(secondNum)) {
+          throw new Error("Invalid input");
+        }
+        //let res = eval(`${firstNum} ${operator} ${secondNum}`);
+        //console.log(res)
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);;
       }catch(err){
+        console.error(err)
         throw new CustomError("nope");
         console.error("Error:", err.message);
       }finally{
         console.log("tried to calculate")
       }
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
