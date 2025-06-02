@@ -6,7 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
-
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "a908db84751d458ca62292a8458d5d9f"
+    });
+  </script>
   <style>
     button {
       margin: 3px;
@@ -86,7 +91,6 @@
       <button id = "globalerror">Trigger a Global Error</button>
     </section>
   </main>
-
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -198,6 +202,10 @@
         this.message = "calculation input wrong";
       }
     }
+    window.onerror = function (message) {
+      TrackJS.track(error || message);
+      return false;
+    };
     globalError.addEventListener('click', e => {
       randomFUnction();
     });
